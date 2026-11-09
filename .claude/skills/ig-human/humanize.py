@@ -40,6 +40,29 @@ URL_RE = re.compile(r"https?://\S+|www\.\S+|\S+@\S+\.\S+")
 SENT_RE = re.compile(r"[^.!?\n]+[.!?]*")
 
 
+# pt-BR: on Portuguese text use only the "-pt" word/phrase entries, so an
+# English rule never rewrites a Portuguese word ("crucial" -> "important").
+PT_HINT = re.compile(r"\b(?:não|nao|você|voce|que|para|pra|com|uma|mas|está|são|isso|é|meu|minha)\b",
+                     re.IGNORECASE)
+
+
+def is_portuguese(text):
+    n = len(text.split()) or 1
+    return len(PT_HINT.findall(text)) / n > 0.04
+
+
+def localize(lex, text, allow=()):
+    """Return a copy of the lexicon fitted to the text's language.
+    `allow` lists structure ids that are part of the account's real voice
+    (see .claude/instagram/voice.md) and must not count as machine tells."""
+    out = dict(lex)
+    if is_portuguese(text):
+        for key in ("words", "phrases"):
+            out[key] = [e for e in lex[key] if str(e.get("family", "")).endswith("-pt")]
+    out["structures"] = [s for s in lex["structures"] if s["id"] not in set(allow)]
+    return out
+
+
 def load_lexicon(path=LEX):
     with open(path, encoding="utf-8") as fh:
         return json.load(fh)
@@ -260,10 +283,14 @@ def main():
     ap.add_argument("--report", action="store_true", help="print what changed, to stderr")
     ap.add_argument("--json", action="store_true", help="emit {text, report} as JSON")
     ap.add_argument("--lexicon", default=LEX, help="path to slop.json")
+    ap.add_argument("--allow", default="",
+                    help="comma-separated structure ids that are house style, e.g. "
+                         "caps-shout,emoji-bullets,hashtag-wall")
     args = ap.parse_args()
 
     raw = sys.stdin.read() if args.input == "-" else open(args.input, encoding="utf-8").read()
-    lex = load_lexicon(args.lexicon)
+    allow = [a.strip() for a in args.allow.split(",") if a.strip()]
+    lex = localize(load_lexicon(args.lexicon), raw, allow)
     clean, report = humanize(raw, lex)
 
     if args.json:

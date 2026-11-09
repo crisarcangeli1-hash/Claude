@@ -6,9 +6,24 @@ description: >-
   says "repurpose this", "turn this into reels", "I have a video/podcast/
   transcript", "cut this up", or pastes something long and wants it on
   Instagram.
+  Também em português: "reaproveita isso", "transforma em reels", "tenho um vídeo/podcast/transcrição", "corta isso".
 ---
 
 # ig-repurpose
+
+## Idioma e voz (pt-BR)
+
+- **Escreva tudo para o usuário em português do Brasil**: roteiros, legendas,
+  texto na tela, hashtags, relatórios e perguntas. As instruções abaixo estão em
+  inglês, mas o resultado nunca deve estar.
+- O perfil de voz fica em `.claude/instagram/voice.md`, na raiz do projeto
+  (os outros arquivos da pasta também: `swipe.md`, `log.md`). Se não existir,
+  procure em `~/.claude/instagram/`.
+- As ferramentas em Python entendem português (números por extenso, R$,
+  pronomes, palavras de tensão, frases típicas de IA em pt-BR). Use os nomes,
+  modelos e exemplos em `pt` de cada fórmula em `hooks.json`, quando existir.
+- O travessão (—) é marca de texto de IA em português também; o `ig-human`
+  continua tirando.
 
 One good long asset contains four to six posts. Most people extract one and
 throw the rest away.

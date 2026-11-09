@@ -6,9 +6,24 @@ description: >-
   the user says "stories", "what do I post on my story", "story sequence",
   "poll idea", "I have nothing to story about", or wants to sell something
   without making a post about it.
+  Também em português: "stories", "o que eu posto no story", "sequência de stories", "ideia de enquete".
 ---
 
 # ig-story
+
+## Idioma e voz (pt-BR)
+
+- **Escreva tudo para o usuário em português do Brasil**: roteiros, legendas,
+  texto na tela, hashtags, relatórios e perguntas. As instruções abaixo estão em
+  inglês, mas o resultado nunca deve estar.
+- O perfil de voz fica em `.claude/instagram/voice.md`, na raiz do projeto
+  (os outros arquivos da pasta também: `swipe.md`, `log.md`). Se não existir,
+  procure em `~/.claude/instagram/`.
+- As ferramentas em Python entendem português (números por extenso, R$,
+  pronomes, palavras de tensão, frases típicas de IA em pt-BR). Use os nomes,
+  modelos e exemplos em `pt` de cada fórmula em `hooks.json`, quando existir.
+- O travessão (—) é marca de texto de IA em português também; o `ig-human`
+  continua tirando.
 
 Stories are not a smaller feed. The feed is how strangers find you. Stories are
 how the people who already follow you decide whether you are a person worth

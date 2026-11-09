@@ -6,9 +6,24 @@ description: >-
   when the user says "DM this person", "what do I send them", "outreach
   message", "how do I follow up", "pitch this brand", or is reaching out to
   someone specific.
+  Também em português: "manda DM pra essa pessoa", "o que eu mando no direct", "mensagem de prospecção", "follow-up", "proposta pra marca".
 ---
 
 # ig-dm
+
+## Idioma e voz (pt-BR)
+
+- **Escreva tudo para o usuário em português do Brasil**: roteiros, legendas,
+  texto na tela, hashtags, relatórios e perguntas. As instruções abaixo estão em
+  inglês, mas o resultado nunca deve estar.
+- O perfil de voz fica em `.claude/instagram/voice.md`, na raiz do projeto
+  (os outros arquivos da pasta também: `swipe.md`, `log.md`). Se não existir,
+  procure em `~/.claude/instagram/`.
+- As ferramentas em Python entendem português (números por extenso, R$,
+  pronomes, palavras de tensão, frases típicas de IA em pt-BR). Use os nomes,
+  modelos e exemplos em `pt` de cada fórmula em `hooks.json`, quando existir.
+- O travessão (—) é marca de texto de IA em português também; o `ig-human`
+  continua tirando.
 
 Instagram DMs are the only place on the platform where money actually changes
 hands, and they are also where most accounts burn the goodwill their content

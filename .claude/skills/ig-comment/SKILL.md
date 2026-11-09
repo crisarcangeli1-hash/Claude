@@ -5,9 +5,24 @@ description: >-
   person with an opinion, not a bot. Use when the user pastes a post or a reel
   and wants a comment, says "comment on this", "engage with this", "what do I
   say here", or wants a batch for their daily engagement round.
+  Também em português: "comenta nesse post", "o que eu respondo aqui", "comentários pra engajar".
 ---
 
 # ig-comment
+
+## Idioma e voz (pt-BR)
+
+- **Escreva tudo para o usuário em português do Brasil**: roteiros, legendas,
+  texto na tela, hashtags, relatórios e perguntas. As instruções abaixo estão em
+  inglês, mas o resultado nunca deve estar.
+- O perfil de voz fica em `.claude/instagram/voice.md`, na raiz do projeto
+  (os outros arquivos da pasta também: `swipe.md`, `log.md`). Se não existir,
+  procure em `~/.claude/instagram/`.
+- As ferramentas em Python entendem português (números por extenso, R$,
+  pronomes, palavras de tensão, frases típicas de IA em pt-BR). Use os nomes,
+  modelos e exemplos em `pt` de cada fórmula em `hooks.json`, quando existir.
+- O travessão (—) é marca de texto de IA em português também; o `ig-human`
+  continua tirando.
 
 Commenting is the highest-leverage twenty minutes on Instagram and the easiest
 to do badly. A comment near the top of a reel with 40,000 views is seen by more
@@ -82,7 +97,7 @@ Post the first. It concedes something and it has a number in it.
 
 For an engagement round, ask for the 5 to 10 posts as pasted text in one
 message, return one comment each in a single block, and keep a running note in
-`~/.claude/instagram/log.md` of who has been commented on this week.
+`.claude/instagram/log.md` of who has been commented on this week.
 Commenting on the same three accounts every day is visible and it looks like
 exactly what it is.
 

@@ -7,9 +7,24 @@ description: >-
   short-form video script, a hook, a voiceover, "make a reel about X", "what
   should I say in this video", or is about to record and does not have the
   first line yet.
+  Também em português: "faz um reel sobre X", "roteiro de vídeo", "gancho", "o que eu falo nesse vídeo", "narração".
 ---
 
 # ig-reel
+
+## Idioma e voz (pt-BR)
+
+- **Escreva tudo para o usuário em português do Brasil**: roteiros, legendas,
+  texto na tela, hashtags, relatórios e perguntas. As instruções abaixo estão em
+  inglês, mas o resultado nunca deve estar.
+- O perfil de voz fica em `.claude/instagram/voice.md`, na raiz do projeto
+  (os outros arquivos da pasta também: `swipe.md`, `log.md`). Se não existir,
+  procure em `~/.claude/instagram/`.
+- As ferramentas em Python entendem português (números por extenso, R$,
+  pronomes, palavras de tensão, frases típicas de IA em pt-BR). Use os nomes,
+  modelos e exemplos em `pt` de cada fórmula em `hooks.json`, quando existir.
+- O travessão (—) é marca de texto de IA em português também; o `ig-human`
+  continua tirando.
 
 Turns one raw idea into a Reel that somebody finishes.
 
@@ -24,7 +39,7 @@ python3 beats.py script.txt --target 30     # timed beat sheet before you shoot
 
 ## Before you write
 
-1. Read `~/.claude/instagram/voice.md` if it exists. That is the user's voice
+1. Read `.claude/instagram/voice.md` if it exists. That is the user's voice
    profile: how they talk on camera, what they never say, who they are talking
    to. If it does not exist, ask for **three of their own reels**, transcribe or
    read them, infer the voice, and write the file. A script in the wrong voice
@@ -36,7 +51,7 @@ python3 beats.py script.txt --target 30     # timed beat sheet before you shoot
 3. If the idea is thin, do not pad it. Ask one batched question: what happened,
    to whom, and what did it cost or return. A Reel needs one specific true
    thing. Get it before writing.
-4. If `~/.claude/instagram/swipe.md` exists, read it. `/ig-viral` writes that
+4. If `.claude/instagram/swipe.md` exists, read it. `/ig-viral` writes that
    file, and it is the user's own evidence about which formulas are working in
    their niche right now. It beats the defaults in this file.
 
@@ -93,7 +108,7 @@ Reply "yes" to log it, or tell me what to change.
 ```
 
 **7. Never publish.** This skill produces a script. The user shoots it and
-posts it. On "yes", append to `~/.claude/instagram/log.md` with the date, the
+posts it. On "yes", append to `.claude/instagram/log.md` with the date, the
 hook formula used and the first line, so `/ig-audit` has a history later.
 
 ## On-screen text is a separate script

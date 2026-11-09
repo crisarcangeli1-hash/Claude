@@ -36,14 +36,16 @@ import re
 import statistics
 import sys
 
-WORD_RE = re.compile(r"[A-Za-z0-9$%'’-]+")
+WORD_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ0-9$%'’-]+")
 NUMBER_RE = re.compile(
-    r"\$\s?\d[\d,]*(?:\.\d+)?"                       # money, whole
+    r"(?:R\$|\$)\s?\d[\d.,]*"                         # money, whole (R$ too)
     r"|\b\d[\d,]*(?:\.\d+)?\s?"                      # a figure, with or
     r"(?:%|k\b|x\b|hrs?\b|hours?\b|mins?\b|minutes?\b"  # without a unit
-    r"|days?\b|weeks?\b|months?\b|years?\b)?",
+    r"|days?\b|weeks?\b|months?\b|years?\b"
+    r"|horas?\b|minutos?\b|min\b|dias?\b|semanas?\b|m[eê]s(?:es)?\b|anos?\b"
+    r"|mil\b|milh(?:ão|ões)\b|bilh(?:ão|ões)\b)?",
     re.IGNORECASE)
-PROPER_RE = re.compile(r"(?<!^)\b[A-Z][a-z]{2,}\b")
+PROPER_RE = re.compile(r"(?<!^)\b[A-ZÀ-ÖØ-Þ][a-zß-öø-ÿ]{2,}\b")
 HASHTAG_RE = re.compile(r"(?:^|\s)#\w+")
 EMOJI_RE = re.compile(r"[\U0001F300-\U0001FAFF☀-➿]")
 
@@ -56,10 +58,20 @@ SPOKEN_NUMBERS = {
     "ten", "eleven", "twelve", "fifteen", "twenty", "thirty", "forty", "fifty",
     "sixty", "seventy", "eighty", "ninety", "hundred", "thousand", "million",
     "billion", "dozen", "half", "twice", "triple",
+    # pt-BR
+    "dois", "duas", "três", "tres", "quatro", "cinco", "seis", "sete", "oito",
+    "nove", "dez", "onze", "doze", "quinze", "vinte", "trinta", "quarenta",
+    "cinquenta", "sessenta", "setenta", "oitenta", "noventa", "cem", "cento",
+    "mil", "milhão", "milhões", "bilhão", "bilhões", "dúzia", "metade",
+    "dobro", "triplo",
 }
 MONEY_WORDS = {
     "dollars", "dollar", "bucks", "grand", "percent", "cents",
     "millionaire", "billionaire", "revenue", "profit", "salary", "rent",
+    # pt-BR
+    "reais", "real", "r$", "dólares", "dólar", "porcento", "centavos",
+    "milionário", "milionária", "bilionário", "faturamento", "faturar",
+    "lucro", "lucrar", "salário", "aluguel", "prejuízo", "dívida",
 }
 
 # Words that put something on the line. A hook with none of these is a
@@ -76,6 +88,17 @@ STAKES = {
     "before", "until", "instead", "but", "except", "unless", "problem",
     "risk", "danger", "warning", "regret", "wish", "should", "shouldn't",
     "still", "already", "only", "without", "versus", "vs", "actually",
+    # pt-BR
+    "pare", "para", "nunca", "errado", "errada", "erro", "erros", "perdi",
+    "perder", "perdeu", "perdendo", "custa", "custou", "custo", "quebrei",
+    "quebrou", "faliu", "falência", "falhei", "fracasso", "ninguém", "não",
+    "nao", "nem", "larguei", "demiti", "demitido", "apaguei", "matou", "mata",
+    "substituiu", "cortei", "grátis", "gratis", "paguei", "cobrei", "contratei",
+    "economizei", "proibido", "ilegal", "pior", "odeio", "odiei", "desperdício",
+    "golpe", "mentira", "mentiram", "verdade", "segredo", "escondido",
+    "roubou", "antes", "até", "mas", "porém", "exceto", "problema", "risco",
+    "perigo", "alerta", "cuidado", "arrependo", "deveria", "ainda", "já",
+    "só", "sem", "contra", "tarde", "armadilha", "crise", "absurdo",
 }
 
 # Openers that spend the first second saying nothing.
@@ -86,6 +109,12 @@ WEAK_OPENERS = [
     "have you", "did you", "do you", "are you", "in this", "in today",
     "the thing", "a lot", "there is", "there are", "this is", "it is",
     "as a", "when it", "if you've", "you know",
+    # pt-BR
+    "então", "entao", "oi", "olá", "ola", "gente", "pessoal", "bom dia",
+    "boa tarde", "boa noite", "hoje", "basicamente", "sinceramente", "olha",
+    "tipo", "bom", "bem", "eu queria", "eu quero", "neste vídeo", "nesse vídeo",
+    "no vídeo", "você sabia", "vocês sabiam", "isso é", "esse é", "essa é",
+    "existe", "tem um", "tem uma", "sabe",
 ]
 
 # Imperatives that earn the front position.
@@ -93,6 +122,11 @@ IMPERATIVES = {
     "stop", "steal", "copy", "delete", "try", "watch", "read", "save",
     "use", "build", "make", "write", "send", "take", "start", "quit",
     "never", "always", "don't", "dont", "do", "put", "run", "check",
+    # pt-BR
+    "pare", "roube", "copie", "apague", "tente", "assista", "veja", "leia",
+    "salve", "use", "construa", "faça", "escreva", "mande", "envie", "comece",
+    "largue", "nunca", "sempre", "coloque", "confira", "anote", "esqueça",
+    "aprenda", "descubra", "olhe", "imagine",
 }
 
 DEALBREAKERS = [
@@ -102,6 +136,12 @@ DEALBREAKERS = [
      "Video preamble. Delete it and open on the payoff."),
     (re.compile(r"(?i)^\s*(?:hey |hi |what'?s up |welcome )"),
      "Greeting. Nobody came to the feed to be greeted."),
+    (re.compile(r"(?i)^\s*(?:para de rolar|pare de rolar|não passa|nao passa)"),
+     "Abre com \"pare de rolar\". Pedir atenção prova que você ainda não a conquistou."),
+    (re.compile(r"(?i)\b(?:n[eo]s(?:te|se) v[íi]deo|no v[íi]deo de hoje|vou te mostrar|vou mostrar pra voc[eê])\b"),
+     "Preâmbulo de vídeo. Apague e abra direto no que importa."),
+    (re.compile(r"(?i)^\s*(?:oi |olá |ola |e a[íi] |fala,? (?:gente|galera|pessoal)|bom dia|boa tarde|boa noite)"),
+     "Saudação. Ninguém abriu o feed para ser cumprimentado."),
     (HASHTAG_RE,
      "Hashtag in the hook. Hashtags belong at the bottom of the caption, if anywhere."),
     (EMOJI_RE,
@@ -201,11 +241,11 @@ def check_address(text):
     """Aimed at one viewer, or floating in the air."""
     low = text.lower()
     w = [x.lower().strip("'’") for x in words(text)]
-    if re.search(r"\b(you|your|you're|youre|yourself)\b", low):
+    if re.search(r"\b(you|your|you're|youre|yourself|você|voce|vocês|voces|seu|sua|seus|suas|te|cê)\b", low):
         return 100.0, "speaks to the viewer"
     if w and w[0] in IMPERATIVES:
         return 90.0, f"imperative opener (\"{w[0]}\")"
-    if re.search(r"\b(i|my|me|we|our)\b", low):
+    if re.search(r"\b(i|my|me|we|our|eu|meu|minha|meus|minhas|nós|nos|nosso|nossa|a gente)\b", low):
         return 70.0, "first person, no viewer named"
     return 35.0, "third person, nobody in the room"
 

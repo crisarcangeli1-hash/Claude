@@ -630,6 +630,161 @@
       "find": "hack",
       "replace": "trick",
       "family": "nouns"
+    },
+    {
+      "find": "mergulhar fundo",
+      "replace": "olhar de perto",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "mergulhe",
+      "replace": "veja",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "mergulhar",
+      "replace": "entrar",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "desbravar",
+      "replace": "explorar",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "desvendar",
+      "replace": "entender",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "alavancar",
+      "replace": "usar",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "otimizar",
+      "replace": "melhorar",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "impulsionar",
+      "replace": "aumentar",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "fomentar",
+      "replace": "estimular",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "navegar pelos",
+      "replace": "lidar com os",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "navegar por",
+      "replace": "lidar com",
+      "family": "verbs-pt"
+    },
+    {
+      "find": "tapeçaria",
+      "replace": "mistura",
+      "family": "nouns-pt"
+    },
+    {
+      "find": "panorama",
+      "replace": "cenário",
+      "family": "nouns-pt"
+    },
+    {
+      "find": "sinergia",
+      "replace": "parceria",
+      "family": "nouns-pt"
+    },
+    {
+      "find": "robusto",
+      "replace": "forte",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "robusta",
+      "replace": "forte",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "primordial",
+      "replace": "importante",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "imprescindível",
+      "replace": "necessário",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "holístico",
+      "replace": "completo",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "holística",
+      "replace": "completa",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "multifacetado",
+      "replace": "variado",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "intrínseco",
+      "replace": "próprio",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "meticuloso",
+      "replace": "cuidadoso",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "vibrante",
+      "replace": "cheio de vida",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "ademais",
+      "replace": "além disso",
+      "family": "connectors-pt"
+    },
+    {
+      "find": "outrossim",
+      "replace": "também",
+      "family": "connectors-pt"
+    },
+    {
+      "find": "destarte",
+      "replace": "assim",
+      "family": "connectors-pt"
+    },
+    {
+      "find": "dessa forma",
+      "replace": "assim",
+      "family": "connectors-pt"
+    },
+    {
+      "find": "em suma",
+      "replace": "resumindo",
+      "family": "connectors-pt"
+    },
+    {
+      "find": "crucial",
+      "replace": "importante",
+      "family": "adjectives-pt"
+    },
+    {
+      "find": "fundamental",
+      "replace": "importante",
+      "family": "adjectives-pt"
     }
   ],
   "phrases": [
@@ -922,6 +1077,126 @@
       "find": "go viral overnight",
       "replace": "get reach",
       "family": "nouns"
+    },
+    {
+      "find": "no cenário atual",
+      "replace": "hoje",
+      "family": "openers-pt"
+    },
+    {
+      "find": "no mundo atual",
+      "replace": "hoje",
+      "family": "openers-pt"
+    },
+    {
+      "find": "em um mundo cada vez mais",
+      "replace": "num mundo mais",
+      "family": "openers-pt"
+    },
+    {
+      "find": "nos dias de hoje",
+      "replace": "hoje",
+      "family": "openers-pt"
+    },
+    {
+      "find": "na era digital",
+      "replace": "hoje",
+      "family": "openers-pt"
+    },
+    {
+      "find": "vale ressaltar que",
+      "replace": "",
+      "family": "filler-pt"
+    },
+    {
+      "find": "vale destacar que",
+      "replace": "",
+      "family": "filler-pt"
+    },
+    {
+      "find": "é importante destacar que",
+      "replace": "",
+      "family": "filler-pt"
+    },
+    {
+      "find": "é importante ressaltar que",
+      "replace": "",
+      "family": "filler-pt"
+    },
+    {
+      "find": "é importante lembrar que",
+      "replace": "lembra:",
+      "family": "filler-pt"
+    },
+    {
+      "find": "cabe ressaltar que",
+      "replace": "",
+      "family": "filler-pt"
+    },
+    {
+      "find": "é fundamental destacar",
+      "replace": "",
+      "family": "filler-pt"
+    },
+    {
+      "find": "no final das contas",
+      "replace": "no fim",
+      "family": "filler-pt"
+    },
+    {
+      "find": "ao fim e ao cabo",
+      "replace": "no fim",
+      "family": "filler-pt"
+    },
+    {
+      "find": "em última análise",
+      "replace": "no fim",
+      "family": "filler-pt"
+    },
+    {
+      "find": "desempenha um papel fundamental",
+      "replace": "é importante",
+      "family": "filler-pt"
+    },
+    {
+      "find": "desempenha um papel crucial",
+      "replace": "é importante",
+      "family": "filler-pt"
+    },
+    {
+      "find": "uma verdadeira jornada",
+      "replace": "um caminho",
+      "family": "filler-pt"
+    },
+    {
+      "find": "embarque nessa jornada",
+      "replace": "venha junto",
+      "family": "filler-pt"
+    },
+    {
+      "find": "leve seu negócio ao próximo nível",
+      "replace": "faça seu negócio crescer",
+      "family": "filler-pt"
+    },
+    {
+      "find": "ao próximo nível",
+      "replace": "mais longe",
+      "family": "filler-pt"
+    },
+    {
+      "find": "espero que isso ajude",
+      "replace": "",
+      "family": "closers-pt"
+    },
+    {
+      "find": "em conclusão",
+      "replace": "",
+      "family": "closers-pt"
+    },
+    {
+      "find": "concluindo,",
+      "replace": "",
+      "family": "closers-pt"
     }
   ],
   "structures": [
@@ -1020,6 +1295,18 @@
       "regex": "(?i)\\b(?:follow for more|tag someone who|double tap if|share this if|comment below if)\\b",
       "name": "Reflex follow or tag bait",
       "fix": "Ask for the one action this post actually earns. The generic ask trains the audience to ignore every ask."
+    },
+    {
+      "id": "nao-apenas-pt",
+      "regex": "(?i)\\bnão (?:é|se trata) (?:apenas|só|somente) (?:de |sobre )?[^.!?\\n]{2,60}[,.] (?:é|mas)\\b",
+      "name": "\"Não é apenas X, é Y\" (pt)",
+      "fix": "Diga a única coisa que você quer dizer. Corte a metade da preparação. Exceção: o contraste curto e seco em CAIXA ALTA faz parte da voz da Cris; use uma vez por post, no máximo."
+    },
+    {
+      "id": "nao-so-mas-tambem-pt",
+      "regex": "(?i)\\bnão (?:só|apenas|somente)\\b[^.!?\\n]{2,80}\\bmas (?:também|tambem)\\b",
+      "name": "\"Não só X, mas também Y\" (pt)",
+      "fix": "Separe em duas frases ou corte a metade mais fraca."
     }
   ]
 }

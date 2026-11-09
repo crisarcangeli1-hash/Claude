@@ -7,9 +7,28 @@ description: >-
   user says humanize, "does this sound like AI", "remove the em dashes",
   "de-slop this", "this sounds like ChatGPT", or before any caption, script,
   comment, reply or DM is shown to the user.
+  Também em português: "humaniza", "isso parece IA?", "tira os travessões", "tira o jeito de ChatGPT".
 ---
 
 # ig-human
+
+## Idioma e voz (pt-BR)
+
+- **Escreva tudo para o usuário em português do Brasil**: roteiros, legendas,
+  texto na tela, hashtags, relatórios e perguntas. As instruções abaixo estão em
+  inglês, mas o resultado nunca deve estar.
+- O perfil de voz fica em `.claude/instagram/voice.md`, na raiz do projeto
+  (os outros arquivos da pasta também: `swipe.md`, `log.md`). Se não existir,
+  procure em `~/.claude/instagram/`.
+- As ferramentas em Python entendem português (números por extenso, R$,
+  pronomes, palavras de tensão, frases típicas de IA em pt-BR). Use os nomes,
+  modelos e exemplos em `pt` de cada fórmula em `hooks.json`, quando existir.
+- O travessão (—) é marca de texto de IA em português também; o `ig-human`
+  continua tirando.
+- **Estilo da casa:** se o `voice.md` disser que CAIXA ALTA, listas com emoji
+  ou 5 hashtags fazem parte da voz real, rode `detect.py` e `humanize.py` com
+  `--allow caps-shout,emoji-bullets,hashtag-wall`. Sem isso, o painel marca o
+  estilo verdadeiro da pessoa como texto de IA.
 
 Two tools live in this folder and they both actually run. Use them. Do not
 eyeball this.

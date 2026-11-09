@@ -35,12 +35,12 @@ HASHTAG_LIMIT = 5        # Instagram's cap per post or reel since 18 Dec 2025,
                          # rather than many generic ones, can improve both your
                          # content's performance and people's experience".
 
-HASHTAG_RE = re.compile(r"(?:^|\s)(#[A-Za-z0-9_]+)")
+HASHTAG_RE = re.compile(r"(?:^|\s)(#[A-Za-zÀ-ÖØ-öø-ÿ0-9_]+)")
 MENTION_RE = re.compile(r"(?:^|\s)(@[A-Za-z0-9_.]+)")
-LINK_RE = re.compile(r"https?://\S+|\bwww\.\S+|\b[a-z0-9-]+\.(?:com|co|io|net|org|ai|app)/\S*",
+LINK_RE = re.compile(r"https?://\S+|\bwww\.\S+|\b[a-z0-9-]+\.(?:com|co|io|net|org|ai|app|com\.br|br)/\S*",
                      re.IGNORECASE)
 EMOJI_RE = re.compile(r"[\U0001F300-\U0001FAFF☀-➿←-⇿️]")
-CONCRETE_RE = re.compile(r"\$\s?\d|\b\d[\d,.]*\b|(?<!^)\b[A-Z][a-z]{2,}\b", re.MULTILINE)
+CONCRETE_RE = re.compile(r"\$\s?\d|\b\d[\d,.]*\b|(?<!^)\b[A-ZÀ-ÖØ-Þ][a-zß-öø-ÿ]{2,}\b", re.MULTILINE)
 
 ASKS = [
     (re.compile(r"(?i)\bcomment (?:the word |\")?[A-Z0-9]{2,}\b"), "comment a keyword"),
@@ -51,6 +51,15 @@ ASKS = [
     (re.compile(r"(?i)\blink in (?:my )?bio\b"), "link in bio"),
     (re.compile(r"(?i)\b(?:swipe|tap) (?:through|left|right|for|to)\b"), "swipe or tap"),
     (re.compile(r"(?i)\btell me\b|\bwhat would you\b|\bwhich one\b"), "answer a question"),
+    # pt-BR
+    (re.compile(r"(?i)\bcomente (?:a palavra |\")?[A-Z0-9À-Ú]{2,}\b"), "comment a keyword"),
+    (re.compile(r"(?i)\b(?:me chama|me manda|mande|manda)\b[^.!?\n]{0,20}\b(?:direct|dm|inbox)\b|\bno (?:meu )?direct\b"), "DM me"),
+    (re.compile(r"(?i)\b(?:salve|salva|guarde|guarda) (?:esse|este|isso|o post|o vídeo|o reel)\b"), "save this"),
+    (re.compile(r"(?i)\b(?:compartilhe|compartilha|manda pra|envie pra|marque) (?:esse|este|isso|com|alguém|uma|um)\b"), "share this"),
+    (re.compile(r"(?i)\b(?:me siga|siga o perfil|segue (?:o perfil|a gente)|me segue)\b"), "follow"),
+    (re.compile(r"(?i)\blink na (?:minha )?bio\b"), "link in bio"),
+    (re.compile(r"(?i)\b(?:arrasta|arraste|deslize) (?:pro lado|para o lado|pra cima)\b"), "swipe or tap"),
+    (re.compile(r"(?i)\bme conta\b|\bme diz\b|\bquero saber (?:a )?sua opini[aã]o\b|\bo que voc[eê] (?:acha|faria|diria)\b|\bqual (?:delas|deles|dessas|desses)\b|\be voc[eê]\?"), "answer a question"),
 ]
 
 FILLER_TAGS = {"#viral", "#fyp", "#explore", "#explorepage", "#foryou", "#foryoupage",

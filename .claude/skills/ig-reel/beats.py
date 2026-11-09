@@ -26,15 +26,24 @@ import json
 import re
 import sys
 
-WORD_RE = re.compile(r"[A-Za-z0-9$%'’-]+")
+WORD_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ0-9$%'’-]+")
 SENT_RE = re.compile(r"[^.!?]+[.!?]*")
-CONCRETE_RE = re.compile(r"\$\s?\d|\b\d[\d,.]*\b|(?<!^)\b[A-Z][a-z]{2,}\b", re.MULTILINE)
+CONCRETE_RE = re.compile(r"\$\s?\d|\b\d[\d,.]*\b|(?<!^)\b[A-ZÀ-ÖØ-Þ][a-zß-öø-ÿ]{2,}\b", re.MULTILINE)
 STOPWORDS = {
     "the", "a", "an", "and", "or", "but", "if", "of", "to", "in", "on", "for",
     "with", "that", "this", "it", "is", "are", "was", "were", "be", "been",
     "you", "your", "i", "my", "me", "we", "our", "they", "them", "he", "she",
     "so", "just", "not", "no", "do", "did", "does", "have", "has", "had",
     "will", "can", "at", "as", "by", "from", "out", "up", "off", "one", "all",
+    # pt-BR
+    "o", "a", "os", "as", "um", "uma", "uns", "umas", "e", "ou", "mas", "se",
+    "de", "do", "da", "dos", "das", "em", "no", "na", "nos", "nas", "por",
+    "pelo", "pela", "para", "pra", "pro", "com", "que", "isso", "esse", "essa",
+    "este", "esta", "isto", "é", "são", "foi", "era", "ser", "estar", "está",
+    "tá", "você", "vocês", "seu", "sua", "eu", "meu", "minha", "me", "nós",
+    "nosso", "nossa", "eles", "elas", "ele", "ela", "então", "só", "não",
+    "nem", "faz", "fez", "tem", "tinha", "vai", "vou", "pode", "ao", "à",
+    "como", "mais", "muito", "todo", "toda", "tudo", "já", "quando", "lhe",
 }
 
 HOOK_WINDOW = 3.0        # seconds. Past this, the thumb has already decided.

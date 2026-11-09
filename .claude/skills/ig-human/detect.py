@@ -33,11 +33,37 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 LEX = os.path.join(HERE, "slop.json")
 
 SENT_RE = re.compile(r"[^.!?\n]+[.!?]*")
-WORD_RE = re.compile(r"[A-Za-z']+")
-CONTRACTIONS = re.compile(r"\b\w+'(?:s|t|re|ve|ll|d|m)\b", re.IGNORECASE)
-PRONOUNS = re.compile(r"\b(i|me|my|mine|we|us|our|you|your)\b", re.IGNORECASE)
-NUMBERS = re.compile(r"\b\d[\d,.]*%?\b|\$\d")
-PROPER = re.compile(r"(?<![.!?]\s)(?<!^)\b[A-Z][a-z]{2,}\b", re.MULTILINE)
+WORD_RE = re.compile(r"[A-Za-zÀ-ÖØ-öø-ÿ']+")
+CONTRACTIONS = re.compile(r"\b\w+'(?:s|t|re|ve|ll|d|m)\b"
+                          # pt-BR spoken forms play the same role
+                          r"|\b(?:pra|pro|pros|pras|tá|tô|tamo|né|cê|tava|tô|num|numa|dum|duma|tipo|aí|daí|vamo|bora)\b",
+                          re.IGNORECASE)
+PRONOUNS = re.compile(r"\b(i|me|my|mine|we|us|our|you|your|eu|meu|minha|meus|minhas|comigo|nós|nosso|nossa|a gente|você|voce|vocês|seu|sua|te|contigo)\b", re.IGNORECASE)
+NUMBERS = re.compile(r"\b\d[\d,.]*%?\b|\$\d|R\$\s?\d")
+PROPER = re.compile(r"(?<![.!?]\s)(?<!^)\b[A-ZÀ-ÖØ-Þ][a-zß-öø-ÿ]{2,}\b", re.MULTILINE)
+
+
+# pt-BR: on Portuguese text use only the "-pt" word/phrase entries, so an
+# English rule never rewrites a Portuguese word ("crucial" -> "important").
+PT_HINT = re.compile(r"\b(?:não|nao|você|voce|que|para|pra|com|uma|mas|está|são|isso|é|meu|minha)\b",
+                     re.IGNORECASE)
+
+
+def is_portuguese(text):
+    n = len(text.split()) or 1
+    return len(PT_HINT.findall(text)) / n > 0.04
+
+
+def localize(lex, text, allow=()):
+    """Return a copy of the lexicon fitted to the text's language.
+    `allow` lists structure ids that are part of the account's real voice
+    (see .claude/instagram/voice.md) and must not count as machine tells."""
+    out = dict(lex)
+    if is_portuguese(text):
+        for key in ("words", "phrases"):
+            out[key] = [e for e in lex[key] if str(e.get("family", "")).endswith("-pt")]
+    out["structures"] = [s for s in lex["structures"] if s["id"] not in set(allow)]
+    return out
 
 
 def clamp(n):
@@ -196,6 +222,9 @@ def main():
     ap.add_argument("compare", nargs="?", help="second file, to show before/after")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--lexicon", default=LEX)
+    ap.add_argument("--allow", default="",
+                    help="comma-separated structure ids that are house style, e.g. "
+                         "caps-shout,emoji-bullets,hashtag-wall")
     args = ap.parse_args()
 
     lex = json.load(open(args.lexicon, encoding="utf-8"))
@@ -207,7 +236,8 @@ def main():
 
     payload = []
     for name, text in targets:
-        results, overall, verdict = run(text, lex)
+        allow = [a.strip() for a in args.allow.split(",") if a.strip()]
+        results, overall, verdict = run(text, localize(lex, text, allow))
         payload.append({
             "source": name,
             "checks": {k: {"score": round(v[0], 1), "detail": v[1]} for k, v in results.items()},
@@ -220,7 +250,8 @@ def main():
         return
 
     for (name, text), p in zip(targets, payload):
-        results, overall, verdict = run(text, lex)
+        allow = [a.strip() for a in args.allow.split(",") if a.strip()]
+        results, overall, verdict = run(text, localize(lex, text, allow))
         render(results, overall, verdict, label=os.path.basename(name) if args.compare else None)
     if args.compare:
         a, b = payload
